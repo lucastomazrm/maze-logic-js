@@ -12,6 +12,7 @@ let finalPositionIndex;
 let visited = [];
 let currentDivIndex = 0;
 
+// Reset variables and clear page
 const clearMaze = () => {
   document.querySelector(".maze").innerHTML = "";
   columns = null;
@@ -22,6 +23,7 @@ const clearMaze = () => {
   currentDivIndex = 0;
 };
 
+// Calculate heuristic value from distance between start and end point
 const calcDistance = index => {
   return (
     Math.abs(
@@ -30,7 +32,8 @@ const calcDistance = index => {
   );
 };
 
-const heuristicHandler = divs => {
+// Set the heuristic value into divs
+const heuristicHandler = () => {
   container.querySelectorAll("div").forEach(e => {
     const index = e.getAttribute("data-index");
     e.innerText = calcDistance(index);
@@ -38,9 +41,11 @@ const heuristicHandler = divs => {
   });
 };
 
+// Generate Maze
 const generateMaze = () => {
   clearMaze();
   const text = document.querySelector("textarea").value;
+
   try {
     const matrix = JSON.parse(text);
     columns = matrix[0].length;
@@ -51,11 +56,12 @@ const generateMaze = () => {
 
     // Index for data-index attribute
     let index = 0;
+
     matrix.forEach(row => {
       row.forEach(value => {
         let div = document.createElement("div");
 
-        // If start point, set first div in walked way
+        // If start point, set first div in visited array
         if (index === 0) {
           div.classList.add("me");
           visited.push(div);
@@ -74,12 +80,15 @@ const generateMaze = () => {
         container.appendChild(div);
       });
     });
+
+    // Call the heuristic calculation
     heuristicHandler();
   } catch (e) {
     alert("Invalid Input");
   }
 };
 
+// Auxiliar Function
 const getDiv = index => {
   return document.querySelector("[data-index='" + index + "']");
 };
@@ -129,6 +138,7 @@ const getLeftDiv = index => {
 };
 
 const findWayOptions = (index, lastDiv) => {
+  // Find the possible ways to go and remove the invalid options
   const ways = [
     getAboveDiv(index),
     getBelowDiv(index),
@@ -151,16 +161,24 @@ const findWayOptions = (index, lastDiv) => {
   }
 };
 
+// Recursive Function
 const run = () => {
   setTimeout(function() {
+    // Set last visited div and remove my picture
     let lastDiv = visited[visited.length - 1];
     lastDiv.setAttribute("data-visited", true);
     lastDiv.classList.remove("me");
-    lastDiv = findWayOptions(currentDivIndex, lastDiv);
-    lastDiv.setAttribute("data-visited", "true");
-    lastDiv.setAttribute("class", "me");
-    currentDivIndex = parseInt(lastDiv.getAttribute("data-index"));
-    visited.push(lastDiv);
+
+    // Set next div to visit (or back)
+    let nextDiv = findWayOptions(currentDivIndex, lastDiv);
+    nextDiv.setAttribute("data-visited", "true");
+    nextDiv.setAttribute("class", "me");
+    currentDivIndex = parseInt(nextDiv.getAttribute("data-index"));
+
+    // Add current div to list of visiteds
+    visited.push(nextDiv);
+
+    // If current index isn't equal to final position, rerun
     if (currentDivIndex != finalPositionIndex) {
       run();
     }
