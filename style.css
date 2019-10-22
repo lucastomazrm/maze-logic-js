@@ -1,0 +1,65 @@
+html,
+body,
+.container {
+  width: 100%;
+  height: 100%;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-flow: row;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form textarea {
+  width: 400px;
+  height: 300px;
+  font-size: 18px;
+  font-family: monospace;
+}
+
+.form button {
+  margin: 10px;
+}
+
+.maze {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.maze > div {
+  border: 1px solid #666;
+  height: 50px;
+  flex-basis: 50px;
+  background: #fff;
+}
+
+.maze > div.wall {
+  background-image: url(wall.jpeg) !important;
+  background-size: contain !important;
+  background-repeat: repeat !important;
+  background-position: center center !important;
+}
+
+.maze > div[data-visited="true"] {
+  background: green;
+}
+
+.me {
+  background-image: url(lucas.jpg) !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+}
+
+.d3 {
+  background-image: url(d3.png) !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+}
