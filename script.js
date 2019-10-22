@@ -21,6 +21,7 @@ const clearMaze = () => {
   visited = [];
   currentDivIndex = 0;
 };
+
 const calcDistance = index => {
   return (
     Math.abs(

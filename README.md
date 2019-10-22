@@ -1,1 +1,5 @@
-# maze-logic-js
+# Maze JavaScript Algorithm
+
+####Author
+
+Lucas Tomaz
