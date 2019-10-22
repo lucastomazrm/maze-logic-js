@@ -1,5 +1,5 @@
 # Maze JavaScript Algorithm
 
-####Author
+#### Author
 
 Lucas Tomaz
