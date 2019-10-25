@@ -2,4 +2,4 @@
 
 #### Author
 
-Lucas Tomaz
+Lucas Tomaz Resende Miranda
